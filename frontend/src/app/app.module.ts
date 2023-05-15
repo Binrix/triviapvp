@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { StartComponent } from './start/start.component';
+import { QuizcreationComponent } from './quizcreation/quizcreation.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { StartComponent } from './start/start.component';
     LoginComponent,
     RegistrationComponent,
     StartComponent,
+    QuizcreationComponent,
   ],
   imports: [
     BrowserModule,
