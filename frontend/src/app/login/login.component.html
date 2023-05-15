@@ -18,15 +18,15 @@
             <p>
                 Username
             </p>
-            <input type="text">
+            <input type="text" [(ngModel)]="username">
         </div>
         <div class="logininput">
             <p>
                 Password
             </p>
-            <input type="password"><br><br>
+            <input type="password" [(ngModel)]="password"><br><br>
         </div>
-        <button>
+        <button (click)="login()">
             Login
         </button>
     </div>
