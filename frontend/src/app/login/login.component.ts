@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { SessionService } from '../_services/session.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -15,16 +15,16 @@ export class LoginComponent implements OnInit {
   response: undefined;
 
   constructor(
-    private router: Router, 
     private http: HttpClient,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    private location: Location
     ) { }
 
   ngOnInit(): void {
   }
 
-  changeToRegistration() {
-    this.router.navigateByUrl('/registration');
+  back() {
+    this.location.back();
   }
 
   //TODO: Update URL for Docker env

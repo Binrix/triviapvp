@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { SessionService } from '../_services/session.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-registration',
@@ -15,16 +15,16 @@ export class RegistrationComponent implements OnInit {
 
 
   constructor(
-    private router: Router,
     private http: HttpClient,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    private location: Location
     ) { }
 
   ngOnInit(): void {
   }
 
-  changeToLogin() {
-    this.router.navigateByUrl('/login');
+  back() {
+    this.location.back();
   }
 
   register() {
