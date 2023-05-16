@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Location} from '@angular/common';
+import { GameoptionService } from '../_services/gameoption.service';
 
 @Component({
   selector: 'app-quizcreation',
@@ -9,7 +10,8 @@ import {Location} from '@angular/common';
 export class QuizcreationComponent implements OnInit {
 
   constructor(
-    private location: Location
+    private location: Location,
+    private gameoptionService: GameoptionService
     ) { }
 
   ngOnInit(): void {
@@ -17,6 +19,10 @@ export class QuizcreationComponent implements OnInit {
 
   back() {
     this.location.back();
+  }
+
+  onCheckChange(event: any) {
+    this.gameoptionService.difficulty = event.target.value;
   }
 
 }

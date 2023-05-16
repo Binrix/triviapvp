@@ -10,6 +10,22 @@
     <button type="button" (click)="back()">
         Back
     </button>
+    <h2 class="title">
+        Create Quiz
+    </h2>
+    <div class="quizcreationform">
+        <p>Difficulty</p>
+        <div class="difficultylabel">
+            <label for="easy">easy</label>
+            <label for="medium">medium</label>
+            <label for="hard">hard</label>
+        </div>
+        <div class="difficultyinput">
+            <input type="radio" value="easy" name="radiobuttons" (change)="onCheckChange($event)">
+            <input type="radio" value="medium" name="radiobuttons" (change)="onCheckChange($event)">
+            <input type="radio" value="hard" name="radiobuttons" (change)="onCheckChange($event)">
+        </div>
+    </div>
     
 </body>
 </html>
