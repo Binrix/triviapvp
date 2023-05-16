@@ -9,4 +9,8 @@ export class GameoptionService {
    subject: String = '';
 
   constructor() { }
+
+  startGame() {
+    
+  }
 }
