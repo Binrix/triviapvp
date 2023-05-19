@@ -1,5 +1,7 @@
 let express = require("express");
 let mongoose = require("mongoose");
+let https = require("https");
+let uuid = require('uuid');
 
 let jwt = require("jsonwebtoken")
 let bcrypt = require('bcrypt');
@@ -92,12 +94,29 @@ app.post("/api/signup", async (req, res) => {
     });
 });
 
-app.get('/api/create', isAuthentificated, (req, res)=>{  
-    res.status(200).json({userId: res.locals.userId});   
-})
+app.post('/api/create', isAuthentificated, (req, res)=>{  
+    const { difficulty, subject } = req.body;
+ 
+    https.get(`https://opentdb.com/api.php?amount=10&category=${subject}&difficulty=${difficulty}`, response => {
+        let data = [];
 
-app.get('/api/join/:path', isAuthentificated, (req, res)=>{
-    console.log(req.params.path);
+        response.on('data', chunk => {
+            data.push(chunk);
+        });
+
+        response.on('error', msg => {
+            res.status(404).json({msg});
+        });
+
+        response.on('end', () => {
+            const quiz = JSON.parse(Buffer.concat(data).toString());
+            res.status(200).json({ roomId: uuid.v4() });   
+        });
+    });
+});
+
+app.get('/api/join/:roomId', isAuthentificated, (req, res)=>{
+    console.log(req.params.roomId);
     res.status(200).json({userId: res.locals.userId});   
 })
 

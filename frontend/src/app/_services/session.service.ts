@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { lastValueFrom } from 'rxjs';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +21,10 @@ export class SessionService {
    */
   public signUp(username: string, password: string) {
     return this.httpClient.post<any>("/api/signup", { username, password });
+  }
+
+  public setToken(token: string) {
+    localStorage.setItem("token", token);
   }
 
   /**

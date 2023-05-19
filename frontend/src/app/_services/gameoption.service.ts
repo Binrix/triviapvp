@@ -1,16 +1,18 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameoptionService {
-
   difficulty: String = '';
-   subject: String = '';
+  subject: String = '';
 
-  constructor() { }
+  constructor(
+    private readonly httpClient: HttpClient
+  ) { }
 
-  startGame() {
-    
+  createLobby() {
+    return this.httpClient.post<any>('/api/create', { subject: this.subject, difficulty: this.difficulty });
   }
 }

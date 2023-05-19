@@ -29,7 +29,7 @@
             <label for="subjectdropdown">
                 Subject
             </label><br><br>
-            <select name="subjects" name="subjectdropdown" [(ngModel)]="selectedSubject" (change)="onSelectChange($event)">
+            <select name="subjects" name="subjectdropdown" (change)="onSelectChange($event)">
                 <option value=""></option>
                 <option value="9">General Knowledge</option>
                 <option value="10">Entertainment: Books</option>
@@ -63,6 +63,5 @@
             </button>
         </div>
     </div>
-    
 </body>
 </html>

@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -9,6 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { StartComponent } from './start/start.component';
 import { QuizcreationComponent } from './quizcreation/quizcreation.component';
+import { AuthInterceptor } from './shared/interceptors/http.interceptor';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,9 @@ import { QuizcreationComponent } from './quizcreation/quizcreation.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

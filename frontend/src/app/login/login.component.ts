@@ -30,9 +30,9 @@ export class LoginComponent implements OnInit {
   login() {
     this.sessionService.login(this.username, this.password).subscribe({
       next: (data: { username: string, token: string }) => {
-        const { username, token } = data;
+        const { token } = data;
 
-        console.log(`username: ${username}, token: ${token}`);
+        this.sessionService.setToken(token);
       }
     });
   }

@@ -8,9 +8,6 @@ import { GameoptionService } from '../_services/gameoption.service';
   styleUrls: ['./quizcreation.component.scss']
 })
 export class QuizcreationComponent implements OnInit {
-
-  selectedSubject: String = '';
-
   constructor(
     private location: Location,
     private gameoptionService: GameoptionService
@@ -32,6 +29,10 @@ export class QuizcreationComponent implements OnInit {
   }
 
   startGame() {
-    this.gameoptionService.startGame();
+    this.gameoptionService.createLobby().subscribe({
+      next: (response) => {
+        console.log(response);
+      }
+    });
   }
 }
