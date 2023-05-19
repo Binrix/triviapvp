@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +9,7 @@ export class SessionService {
   token: string = '';
 
   constructor(
-    private readonly httpClient: HttpClient
+    private readonly httpClient: HttpClient,
   ) { }
 
   /**

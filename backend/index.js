@@ -2,11 +2,13 @@ let express = require("express");
 let mongoose = require("mongoose");
 let https = require("https");
 let uuid = require('uuid');
+let http = require("http");
 
 let jwt = require("jsonwebtoken")
 let bcrypt = require('bcrypt');
 
-let User = require('./models/userModel')
+let User = require('./models/userModel');
+const { Server } = require("socket.io");
 
 //Constants
 const PORT = 3000;
@@ -15,6 +17,8 @@ const KEY = '98BsVId1kAJf7X1PU62Frw';
 
 
 let app = express();
+const httpServer = new http.Server(app);
+const io = new Server(httpServer, { cors: { origin: "*" }});
 
 const createLog = (req, res, next) => {
     res.on("finish", function() {
@@ -115,8 +119,39 @@ app.post('/api/create', isAuthentificated, (req, res)=>{
     });
 });
 
+// const joinRoom = (client, io) => {
+//     client.on('join-room', (payload) => {
+
+//     });
+// }
+
+let rooms = [];
+
+io.on("connection", socket => {
+    socket.on("join", (data) => {
+        var room = rooms.find(r => r.roomId == roomId); 
+
+        if(room == undefined) {
+            rooms.push({ roomId: roomId, amountPlayers: 1 });
+        } else {
+            room.amountPlayers++;
+        }; 
+
+        socket.join(roomId);
+    });
+    socket.on("leave", (data) => {
+        socket.leave(roomId);
+    });
+    socket.on("get-rooms", () => {
+        socket.emit("rooms", rooms);
+    });
+});
+
 app.get('/api/join/:roomId', isAuthentificated, (req, res)=>{
     console.log(req.params.roomId);
+
+    
+
     res.status(200).json({userId: res.locals.userId});   
 })
 
@@ -155,7 +190,7 @@ function isAuthentificated(req,res,next)
     }
 }
 
-app.listen(PORT, (error) => {
+httpServer.listen(PORT, (error) => {
     if(!error)
     {
         console.log(`App is listening on port ${PORT}`);
