@@ -119,16 +119,10 @@ app.post('/api/create', isAuthentificated, (req, res)=>{
     });
 });
 
-// const joinRoom = (client, io) => {
-//     client.on('join-room', (payload) => {
-
-//     });
-// }
-
 let rooms = [];
 
 io.on("connection", socket => {
-    socket.on("join", (data) => {
+    socket.on("join", (roomId) => {
         var room = rooms.find(r => r.roomId == roomId); 
 
         if(room == undefined) {
@@ -139,15 +133,16 @@ io.on("connection", socket => {
 
         socket.join(roomId);
     });
-    socket.on("leave", (data) => {
+    socket.on("leave", (roomId) => {
         socket.leave(roomId);
-    });
-    socket.on("get-rooms", () => {
-        socket.emit("rooms", rooms);
     });
 });
 
-app.get('/api/join/:roomId', isAuthentificated, (req, res)=>{
+app.get('/api/rooms', isAuthentificated, (req, res) => {
+    res.status(200).json(rooms);
+});
+
+app.get('/api/join/:roomId', isAuthentificated, (req, res)=> {
     console.log(req.params.roomId);
 
     

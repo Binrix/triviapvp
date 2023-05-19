@@ -11,6 +11,7 @@ import { StartComponent } from './start/start.component';
 import { QuizcreationComponent } from './quizcreation/quizcreation.component';
 import { AuthInterceptor } from './shared/interceptors/http.interceptor';
 import { LobbyComponent } from './lobby/lobby.component';
+import { RoomsComponent } from './rooms/rooms.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { LobbyComponent } from './lobby/lobby.component';
     StartComponent,
     QuizcreationComponent,
     LobbyComponent,
+    RoomsComponent,
   ],
   imports: [
     BrowserModule,

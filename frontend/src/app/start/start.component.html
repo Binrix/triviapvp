@@ -10,15 +10,10 @@
     <h1>PvPTrivia</h1>
     <div class="sidebyside">
         <div class="buttons">
-            <button class="button" (click)="navToQuizCreation()">
-                Create Quiz
-            </button>
-            <button class="button" (click)="navToRegistration()">
-                Registration
-            </button>
-            <button class="button" (click)="navToLogin()">
-                Login
-            </button>
+            <a routerLink="/quizcreation">Create Quiz</a>
+            <a routerLink="/rooms">Rooms</a>
+            <a routerLink="/login">Login</a>
+            <a routerLink="/registration">Registration</a>
         </div>
         <div class="logo">
             <img id="beanslogo" src="../../assets/Homemade-Heinz-Baked-Beans_0-SQ.jpg">
