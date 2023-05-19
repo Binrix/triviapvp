@@ -28,8 +28,7 @@ mongoose.connect(MONGO_URL,{ useNewUrlParser: true, useUnifiedTopology: true })
     .catch(error => {console.log(`Error:${error}`)});
 
 // Handling post request
-app.post("/login", async (req, res) => {
-
+app.post("/api/login", async (req, res) => {
     let { username, password } = req.body;
 
     if (!username || !password)
@@ -60,8 +59,7 @@ app.post("/login", async (req, res) => {
 });
    
 // Handling post request
-app.post("/signup", async (req, res) => {
-
+app.post("/api/signup", async (req, res) => {
     let { username, password } = req.body;
 
     let user = await User.findOne({username: username})    
@@ -94,11 +92,11 @@ app.post("/signup", async (req, res) => {
     });
 });
 
-app.get('/create', isAuthentificated, (req, res)=>{  
+app.get('/api/create', isAuthentificated, (req, res)=>{  
     res.status(200).json({userId: res.locals.userId});   
 })
 
-app.get('/join/:path', isAuthentificated, (req, res)=>{
+app.get('/api/join/:path', isAuthentificated, (req, res)=>{
     console.log(req.params.path);
     res.status(200).json({userId: res.locals.userId});   
 })

@@ -18,13 +18,13 @@
             <p>
                 Username
             </p>
-            <input type="text">
+            <input type="text" [(ngModel)]="username">
         </div>
         <div class="registerinput">
             <p>
                 Password
             </p>
-            <input type="password">
+            <input type="password" [(ngModel)]="password"><br><br>
         </div>
         <br><br>
         <button (click)="register()">

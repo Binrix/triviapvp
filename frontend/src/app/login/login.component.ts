@@ -15,7 +15,6 @@ export class LoginComponent implements OnInit {
   response: undefined;
 
   constructor(
-    private http: HttpClient,
     private sessionService: SessionService,
     private location: Location
     ) { }
@@ -29,10 +28,13 @@ export class LoginComponent implements OnInit {
 
   //TODO: Update URL for Docker env
   login() {
-    this.http.post<any>("URL/login", { username: this.username, password: this.password }).subscribe(data => {
-      this.sessionService.username = data.username;
-      this.sessionService.token = data.token;
-    })
+    this.sessionService.login(this.username, this.password).subscribe({
+      next: (data: { username: string, token: string }) => {
+        const { username, token } = data;
+
+        console.log(`username: ${username}, token: ${token}`);
+      }
+    });
   }
 
 }

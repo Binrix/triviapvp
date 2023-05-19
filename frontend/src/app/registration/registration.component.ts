@@ -15,9 +15,8 @@ export class RegistrationComponent implements OnInit {
 
 
   constructor(
-    private http: HttpClient,
     private sessionService: SessionService,
-    private location: Location
+    private location: Location,
     ) { }
 
   ngOnInit(): void {
@@ -28,10 +27,12 @@ export class RegistrationComponent implements OnInit {
   }
 
   register() {
-    this.http.post<any>("URL/signup", { username: this.username, password: this.password }).subscribe(data => {
-      this.sessionService.username = data.username;
-      this.sessionService.token = data.token;
-    })
-  }
+    this.sessionService.signUp(this.username, this.password).subscribe({
+      next: (data: { username: string, token: string }) => {
+        const { username, token } = data;
 
+        console.log(`username: ${username}, token: ${token}`);
+      }
+    });
+  }
 }
