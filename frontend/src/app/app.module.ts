@@ -10,6 +10,7 @@ import { RegistrationComponent } from './registration/registration.component';
 import { StartComponent } from './start/start.component';
 import { QuizcreationComponent } from './quizcreation/quizcreation.component';
 import { AuthInterceptor } from './shared/interceptors/http.interceptor';
+import { LobbyComponent } from './lobby/lobby.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { AuthInterceptor } from './shared/interceptors/http.interceptor';
     RegistrationComponent,
     StartComponent,
     QuizcreationComponent,
+    LobbyComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Location} from '@angular/common';
 import { GameoptionService } from '../_services/gameoption.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-quizcreation',
@@ -10,7 +11,8 @@ import { GameoptionService } from '../_services/gameoption.service';
 export class QuizcreationComponent implements OnInit {
   constructor(
     private location: Location,
-    private gameoptionService: GameoptionService
+    private gameoptionService: GameoptionService,
+    private readonly router: Router
     ) { }
 
   ngOnInit(): void {
@@ -31,7 +33,7 @@ export class QuizcreationComponent implements OnInit {
   startGame() {
     this.gameoptionService.createLobby().subscribe({
       next: (response) => {
-        console.log(response);
+        this.router.navigate([`/join/${response.roomId}`]);
       }
     });
   }
