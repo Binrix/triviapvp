@@ -20,6 +20,10 @@ export class WebsocketService {
         this.socket.connect();
     }
 
+    public giveAnswer(roomId: string, answer: string) {
+        this.socket.emit('give-answer', { roomId, answer });
+    }
+
     public startGame(roomId: string) {
         this.socket.emit('start-game', roomId);
     }

@@ -1,5 +1,5 @@
 <div class="container">
-    <div *ngIf="!startQuiz; else quiz" class="lobby-view">
+    <div *ngIf="!startQuiz; else quizDiv" class="lobby-view">
         <div class="invitation-box">
             <p>Copy and share!</p>
             <p>localhost:4200/api/join/{{ roomId }}</p>
@@ -8,10 +8,21 @@
             <p>Player {{player}} joined the lobby!</p>
         </div>
         <div *ngIf="isInitator">
-            <button (click)="startQuiz">Start game</button>
+            <button (click)="startGame()">Start game</button>
         </div>
     </div>
-    <ng-template #quiz>
-        test
+    <ng-template #quizDiv>
+        <div *ngIf="!gaveAnswer; else showText">
+            <p>{{ quiz.results[currentQuestionIndex].question }}</p>
+            <div *ngFor="let answer of quiz.results[currentQuestionIndex].incorrect_answers">
+                <button (click)="giveAnswer(answer)">{{ answer }}</button>
+            </div>
+            <div>
+                <button (click)="giveAnswer(quiz.results[currentQuestionIndex].correct_answer)">{{quiz.results[currentQuestionIndex].correct_answer}}</button>
+            </div>
+        </div>
+        <ng-template #showText>
+            <p>Waiting for others...</p>
+        </ng-template>
     </ng-template>
 </div>
