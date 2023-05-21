@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SessionService } from '../_services/session.service';
 import {Location} from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private sessionService: SessionService,
-    private location: Location
+    private location: Location,
+    private router: Router
     ) { }
 
   ngOnInit(): void {
@@ -35,6 +37,7 @@ export class LoginComponent implements OnInit {
         this.sessionService.setToken(token);
       }
     });
+    this.router.navigateByUrl('/start');
   }
 
 }

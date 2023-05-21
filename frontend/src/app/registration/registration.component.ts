@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { SessionService } from '../_services/session.service';
 import {Location} from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -17,6 +18,7 @@ export class RegistrationComponent implements OnInit {
   constructor(
     private sessionService: SessionService,
     private location: Location,
+    private router: Router
     ) { }
 
   ngOnInit(): void {
@@ -34,5 +36,6 @@ export class RegistrationComponent implements OnInit {
         this.sessionService.setToken(token);
       }
     });
+    this.router.navigateByUrl('/start');
   }
 }
