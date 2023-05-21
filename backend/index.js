@@ -8,7 +8,9 @@ let jwt = require("jsonwebtoken")
 let bcrypt = require('bcrypt');
 
 let User = require('./models/userModel');
+let quizSchema = require('./models/quiz');
 const { Server } = require("socket.io");
+const { type } = require("os");
 
 //Constants
 const PORT = 3000;
@@ -62,6 +64,8 @@ app.post("/api/login", async (req, res) => {
         username: existingUser.username,
         token: token,
     });
+
+    // res.render('start');
 });
    
 // Handling post request
@@ -96,6 +100,8 @@ app.post("/api/signup", async (req, res) => {
         username: dbUser.username,
         jwttoken: token
     });
+
+    // res.render('start');
 });
 
 app.post('/api/create', isAuthentificated, (req, res)=>{  
@@ -113,8 +119,17 @@ app.post('/api/create', isAuthentificated, (req, res)=>{
         });
 
         response.on('end', () => {
+            lobbyUrl = uuid.v4();
             const quiz = JSON.parse(Buffer.concat(data).toString());
-            res.status(200).json({ roomId: uuid.v4() });   
+            console.log(typeof quiz);
+            newQuiz = {
+                lobbyurl: lobbyUrl,
+                quizContent: quiz.results
+            }
+            quizSchema.create(newQuiz);
+
+            res.status(200).json({ roomId: uuid.v4() });
+
         });
     });
 });
