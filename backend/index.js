@@ -146,6 +146,7 @@ io.on("connection", socket => {
         }; 
 
         socket.join(roomId);
+        socket.to(roomId).emit('player-joined', `Unknown`);
     });
     socket.on("leave", (roomId) => {
         socket.leave(roomId);

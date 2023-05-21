@@ -12,6 +12,10 @@ export class WebsocketService {
         this.socket = io("http://localhost:3000");
     }
 
+    public getSocket() {
+        return this.socket;
+    }
+
     public connect() {
         this.socket.connect();
     }

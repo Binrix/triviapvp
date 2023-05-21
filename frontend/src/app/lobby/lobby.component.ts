@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SessionService } from '../_services/session.service';
 import { WebsocketService } from '../_services/websocket.service';
 
 @Component({
@@ -10,6 +9,7 @@ import { WebsocketService } from '../_services/websocket.service';
 })
 export class LobbyComponent implements OnInit {
   public roomId: string | null = "";
+  public players: string[] = [];
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -23,7 +23,8 @@ export class LobbyComponent implements OnInit {
       this.websocketService.joinRoom(this.roomId);
     }
 
-    console.log(this.roomId);
+    this.websocketService.getSocket().on('player-joined', (data) => {
+      this.players.push(data);
+    });
   }
-
 }

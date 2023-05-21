@@ -3,4 +3,7 @@
         <p>Copy and share!</p>
         <p>localhost:4200/api/join/{{ roomId }}</p>
     </div>
+    <div *ngFor="let player of players">
+        <p>Player {{player}} joined the lobby!</p>
+    </div>
 </div>
