@@ -1,7 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { SessionService } from '../_services/session.service';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 
 @Component({

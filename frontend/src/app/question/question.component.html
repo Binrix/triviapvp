@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class="question">{{currentRoundSet.question}}</h1>
+        <div class="answers">
+            <button class="answer-button" (click)="sendAnswer(currentRoundSet.correct_answer)">{{currentRoundSet.correct_answer}}</button>
+            <button class="answer-button" (click)="sendAnswer(currentRoundSet.incorrect_answers[0])">{{currentRoundSet.incorrect_answers[0]}}</button>
+            <button class="answer-button" (click)="sendAnswer(currentRoundSet.incorrect_answers[1])">{{currentRoundSet.incorrect_answers[1]}}</button>
+            <button class="answer-button" (click)="sendAnswer(currentRoundSet.incorrect_answers[2])">{{currentRoundSet.incorrect_answers[2]}}</button>
+        </div>
+    </div>
+</body>
+</html>
