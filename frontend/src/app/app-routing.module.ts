@@ -13,7 +13,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'registration', component: RegistrationComponent},
   {path: 'quizcreation', component: QuizcreationComponent},
-  {path: 'join/:roomId', component: LobbyComponent },
+  {path: 'join/:roomId/:initator', component: LobbyComponent },
   {path: 'rooms', component: RoomsComponent }
 ];
 

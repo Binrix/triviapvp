@@ -37,7 +37,7 @@ export class QuizcreationComponent implements OnInit {
       next: (response) => {
         this.gameService.lobbyUrl = response.roomId;
         this.gameService.quizContent = response.quizContent;
-        this.router.navigate([`/join/${response.roomId}`]);
+        this.router.navigate([`/join/${response.roomId}/true`]);
       }
     });
   }

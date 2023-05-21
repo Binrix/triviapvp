@@ -1,5 +1,5 @@
 <div class="rooms">
-    <div routerLink="/join/{{room.roomId}}" *ngFor="let room of rooms" class="room">
+    <div routerLink="/join/{{room.roomId}}/false" *ngFor="let room of rooms" class="room">
         {{ room.roomId }}, {{ room.amountPlayers }}
     </div>
 </div>

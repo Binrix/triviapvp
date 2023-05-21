@@ -1,9 +1,17 @@
 <div class="container">
-    <div class="invitation-box">
-        <p>Copy and share!</p>
-        <p>localhost:4200/api/join/{{ roomId }}</p>
+    <div *ngIf="!startQuiz; else quiz" class="lobby-view">
+        <div class="invitation-box">
+            <p>Copy and share!</p>
+            <p>localhost:4200/api/join/{{ roomId }}</p>
+        </div>
+        <div *ngFor="let player of players">
+            <p>Player {{player}} joined the lobby!</p>
+        </div>
+        <div *ngIf="isInitator">
+            <button (click)="startQuiz">Start game</button>
+        </div>
     </div>
-    <div *ngFor="let player of players">
-        <p>Player {{player}} joined the lobby!</p>
-    </div>
+    <ng-template #quiz>
+        test
+    </ng-template>
 </div>
