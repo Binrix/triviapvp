@@ -121,14 +121,13 @@ app.post('/api/create', isAuthentificated, (req, res)=>{
         response.on('end', () => {
             lobbyUrl = uuid.v4();
             const quiz = JSON.parse(Buffer.concat(data).toString());
-            console.log(typeof quiz);
             newQuiz = {
                 lobbyurl: lobbyUrl,
                 quizContent: quiz.results
             }
             quizSchema.create(newQuiz);
 
-            res.status(200).json({ roomId: uuid.v4() });
+            res.status(200).json({ roomId: uuid.v4(), quizContent: quiz.results });
 
         });
     });
