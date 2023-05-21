@@ -8,23 +8,8 @@ import { Router } from '@angular/router';
 })
 export class StartComponent implements OnInit {
 
-  constructor(
-    private router: Router
-    ) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
-
-  navToQuizCreation() {
-    this.router.navigateByUrl('/quizcreation');
-  }
-
-  navToRegistration() {
-    this.router.navigateByUrl('/registration');
-  }
-
-  navToLogin() {
-    this.router.navigateByUrl('/login');
-  }
-
 }
