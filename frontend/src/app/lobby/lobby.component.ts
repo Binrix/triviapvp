@@ -148,7 +148,7 @@ export class LobbyComponent implements OnInit {
   public startGame() {
     if(this.roomId) {
       this.websocketService.startGame(this.roomId);
-      this.startQuiz = true;
+      // this.startQuiz = true;
     }
   }
 
@@ -170,14 +170,15 @@ export class LobbyComponent implements OnInit {
       this.websocketService.joinRoom(this.roomId);
 
     this.websocketService.getSocket().on('next-question', () => {
+      console.log("hhhhhh");
       this.gaveAnswer = false;
       this.currentQuestionIndex++;
     });
-    this.websocketService.getSocket().on('start-game', () => {
+    this.websocketService.getSocket().on('first-question', () => {
       this.startQuiz = true;
       this.currentQuestionIndex = 0;
     });
-    this.websocketService.getSocket().on('player-joined', (data) => {
+    this.websocketService.getSocket().on('player-joined', (data: string) => {
       this.players.push(data);
     });
   }

@@ -123,21 +123,48 @@ let rooms = [];
 
 io.on("connection", socket => {
     socket.on("join", (roomId) => {
+        console.log("join");
         var room = rooms.find(r => r.roomId == roomId); 
 
         if(room == undefined) {
-            rooms.push({ roomId: roomId, amountPlayers: 1 });
+            rooms.push({ roomId: roomId, amountPlayers: 1, givenAnswers: 0, answers: [] });
         } else {
             room.amountPlayers++;
         }; 
 
         socket.join(roomId);
-        // socket.emit('quiz-data', )
-        socket.to(roomId).emit('quiz-data', {})
+        
+        socket.emit('quiz-data', {})
         socket.to(roomId).emit('player-joined', `Unknown`);
     });
     socket.on("leave", (roomId) => {
         socket.leave(roomId);
+    });
+    socket.on("start-game", (roomId) => {
+        console.log("start-game");
+        console.log(roomId);
+        io.in(roomId).emit("first-question", {});
+    });
+    socket.on("give-answer", (data) => {
+        const { roomId, answer } = data;
+
+        var room = rooms.find(r => r.roomId == roomId);
+        console.log(data);
+
+        if(room != undefined) {
+            room.answers.push({ socketId: socket.id, answer: answer });
+            room.givenAnswers++;
+
+            console.log(room.givenAnswers);
+            console.log(room.amountPlayers);
+
+            if(room.givenAnswers >= room.amountPlayers) {
+                console.log("all gave answer");
+                console.log(roomId);
+                io.in(roomId).emit('next-question', {});
+                room.givenAnswers = 0;
+            }
+        }
     });
 });
 

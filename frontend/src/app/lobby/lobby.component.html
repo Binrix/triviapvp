@@ -13,16 +13,18 @@
     </div>
     <ng-template #quizDiv>
         <div *ngIf="!gaveAnswer; else showText">
-            <p>{{ quiz.results[currentQuestionIndex].question }}</p>
-            <div *ngFor="let answer of quiz.results[currentQuestionIndex].incorrect_answers">
-                <button (click)="giveAnswer(answer)">{{ answer }}</button>
-            </div>
-            <div>
-                <button (click)="giveAnswer(quiz.results[currentQuestionIndex].correct_answer)">{{quiz.results[currentQuestionIndex].correct_answer}}</button>
+            <p class="question">{{ quiz.results[currentQuestionIndex].question }}</p>
+            <div class="answers">
+                <div *ngFor="let answer of quiz.results[currentQuestionIndex].incorrect_answers">
+                    <button (click)="giveAnswer(answer)">{{ answer }}</button>
+                </div>
+                <div>
+                    <button (click)="giveAnswer(quiz.results[currentQuestionIndex].correct_answer)">{{quiz.results[currentQuestionIndex].correct_answer}}</button>
+                </div>
             </div>
         </div>
         <ng-template #showText>
-            <p>Waiting for others...</p>
+            <p class="waiting">Waiting for others...</p>
         </ng-template>
     </ng-template>
 </div>
