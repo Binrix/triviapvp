@@ -13,7 +13,7 @@
     </div>
     <ng-template #quizDiv>
         <div *ngIf="!gaveAnswer; else showText">
-            <p class="question">{{ quiz.results[currentQuestionIndex].question }}</p>
+            <p class="title">{{ quiz.results[currentQuestionIndex].question }}</p>
             <div class="answers">
                 <div *ngFor="let answer of quiz.results[currentQuestionIndex].incorrect_answers">
                     <button (click)="giveAnswer(answer)">{{ answer }}</button>

@@ -22,8 +22,16 @@ export class SessionService {
     return this.httpClient.post<any>("/api/signup", { username, password });
   }
 
-  public setToken(token: string) {
+  public logout() {
+    localStorage.removeItem("token");
+  }
+
+  public setToken(token: string): void {
     localStorage.setItem("token", token);
+  }
+
+  public isAuthorized(): boolean {
+    return !!localStorage.getItem("token");
   }
 
   /**

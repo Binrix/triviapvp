@@ -7,16 +7,19 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>PvPTrivia</h1>
-    <div class="sidebyside">
-        <div class="buttons">
-            <a routerLink="/quizcreation">Create Quiz</a>
-            <a routerLink="/rooms">Rooms</a>
-            <a routerLink="/login">Login</a>
-            <a routerLink="/registration">Registration</a>
-        </div>
-        <div class="logo">
-            <img id="beanslogo" src="../../assets/Homemade-Heinz-Baked-Beans_0-SQ.jpg">
+    <div class="container">
+        <h1>PvPTrivia</h1>
+        <div class="sidebyside">
+            <div class="buttons">
+                <a routerLink="/quizcreation">Create Quiz</a>
+                <a routerLink="/rooms">Rooms</a>
+                <a *ngIf="!isAuthorized" routerLink="/login">Login</a>
+                <a *ngIf="!isAuthorized" routerLink="/registration">Registration</a>
+                <a (click)="logout()" *ngIf="isAuthorized">Logout</a>
+            </div>
+            <div class="logo">
+                <img id="beanslogo" src="../../assets/Homemade-Heinz-Baked-Beans_0-SQ.jpg">
+            </div>
         </div>
     </div>
 </body>
