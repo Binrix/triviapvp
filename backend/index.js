@@ -8,6 +8,7 @@ let jwt = require("jsonwebtoken")
 let bcrypt = require('bcrypt');
 
 let User = require('./models/userModel');
+let Quiz = require('./models/quiz');
 const { Server } = require("socket.io");
 
 //Constants
@@ -112,9 +113,16 @@ app.post('/api/create', isAuthentificated, (req, res)=>{
             res.status(404).json({msg});
         });
 
-        response.on('end', () => {
+        response.on('end', async () => {
             const quiz = JSON.parse(Buffer.concat(data).toString());
-            res.status(200).json({ roomId: uuid.v4() });   
+            const roomId = uuid.v4();
+            var newQuiz = {
+                quizContent: quiz.results,
+                lobbyurl: roomId
+            };
+
+            var dbQuiz = await Quiz.create(newQuiz);
+            res.status(200).json({ roomId });   
         });
     });
 });
@@ -122,7 +130,7 @@ app.post('/api/create', isAuthentificated, (req, res)=>{
 let rooms = [];
 
 io.on("connection", socket => {
-    socket.on("join", (roomId) => {
+    socket.on("join", async (roomId) => {
         console.log("join");
         var room = rooms.find(r => r.roomId == roomId); 
 
@@ -134,7 +142,9 @@ io.on("connection", socket => {
 
         socket.join(roomId);
         
-        socket.emit('quiz-data', {})
+        let quiz = await Quiz.findOne({ lobbyurl: roomId }); 
+
+        socket.emit('quiz-data', quiz);
         socket.to(roomId).emit('player-joined', `Unknown`);
     });
     socket.on("leave", (roomId) => {
