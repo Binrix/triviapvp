@@ -24,7 +24,14 @@
             </div>
         </div>
         <ng-template #showText>
-            <p class="waiting">Waiting for others...</p>
+            <div *ngIf="showSummarize; else waitingForOthers">
+                <div *ngFor="let oneSummarize of summarize">
+                    <p>{{ oneSummarize.socketId }}: {{ oneSummarize.points }}</p>
+                </div>
+            </div>
+            <ng-template #waitingForOthers>
+                <p class="waiting">Waiting for others...</p>
+            </ng-template>
         </ng-template>
     </ng-template>
 </div>

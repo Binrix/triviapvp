@@ -133,16 +133,15 @@ io.on("connection", socket => {
     socket.on("join", async (roomId) => {
         console.log("join");
         var room = rooms.find(r => r.roomId == roomId); 
+        let quiz = await Quiz.findOne({ lobbyurl: roomId }); 
 
         if(room == undefined) {
-            rooms.push({ roomId: roomId, amountPlayers: 1, givenAnswers: 0, answers: [] });
+            rooms.push({ roomId: roomId, amountPlayers: 1, givenAnswers: 0, answers: [], currentQuestionIndex: 0, numberQuestions: quiz.quizContent.length });
         } else {
             room.amountPlayers++;
         }; 
 
         socket.join(roomId);
-        
-        let quiz = await Quiz.findOne({ lobbyurl: roomId }); 
 
         socket.emit('quiz-data', quiz);
         socket.to(roomId).emit('player-joined', `Unknown`);
@@ -151,28 +150,41 @@ io.on("connection", socket => {
         socket.leave(roomId);
     });
     socket.on("start-game", (roomId) => {
-        console.log("start-game");
-        console.log(roomId);
-        io.in(roomId).emit("first-question", {});
+        io.in(roomId).emit("first-question");
     });
-    socket.on("give-answer", (data) => {
+    socket.on("give-answer", async (data) => {
         const { roomId, answer } = data;
-
         var room = rooms.find(r => r.roomId == roomId);
-        console.log(data);
 
         if(room != undefined) {
             room.answers.push({ socketId: socket.id, answer: answer });
             room.givenAnswers++;
 
-            console.log(room.givenAnswers);
-            console.log(room.amountPlayers);
-
             if(room.givenAnswers >= room.amountPlayers) {
-                console.log("all gave answer");
-                console.log(roomId);
-                io.in(roomId).emit('next-question', {});
-                room.givenAnswers = 0;
+                room.currentQuestionIndex++;
+
+                if(room.currentQuestionIndex >= room.numberQuestions) {
+                    let quiz = await Quiz.findOne({ lobbyurl: roomId }); 
+
+                    var answers = room.answers;
+                    var correctAnswers = quiz.quizContent.map(answer => answer.correct_answer);
+                    var summarize = [];
+                    answers.forEach(answer => {
+                        if(correctAnswers.includes(answer.answer)) {
+                            var player = summarize.find(p => p.socketId == answer.socketId);
+
+                            if(player == undefined) 
+                                summarize.push({ socketId: answer.socketId, points: 1 });
+                            else
+                                player.points++;
+                        }
+                    });
+
+                    io.in(roomId).emit('end', summarize);
+                } else {
+                    io.in(roomId).emit('next-question');
+                    room.givenAnswers = 0;
+                }
             }
         }
     });
@@ -183,10 +195,6 @@ app.get('/api/rooms', isAuthentificated, (req, res) => {
 });
 
 app.get('/api/join/:roomId', isAuthentificated, (req, res)=> {
-    console.log(req.params.roomId);
-
-    
-
     res.status(200).json({userId: res.locals.userId});   
 })
 

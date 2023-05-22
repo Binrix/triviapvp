@@ -11,12 +11,16 @@ import { Quiz } from '../shared/interfaces/quiz.interface';
 export class LobbyComponent implements OnInit {
   public roomId: string | null = "";
   public players: string[] = [];
+  public summarize: { socketId: string, points: number }[] = [];
   public startQuiz = false;
   public isInitator = false;
+  public showSummarize = false;
   public gaveAnswer = false;
   public currentQuestionIndex = 0;
   public answers: { answer: string, questionIndex: number }[] = [];
-  public quiz: Quiz;
+  public quiz: Quiz = {
+    results: []
+  };
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -45,6 +49,13 @@ export class LobbyComponent implements OnInit {
     if(this.roomId)
       this.websocketService.joinRoom(this.roomId);
 
+    this.websocketService.getSocket().on('quiz-data', (quiz: any) => {
+      this.quiz.results = quiz.quizContent;
+    });
+    this.websocketService.getSocket().on('end', (result: any) => {
+      this.showSummarize = true;
+      this.summarize = result;
+    });
     this.websocketService.getSocket().on('next-question', () => {
       this.gaveAnswer = false;
       this.currentQuestionIndex++;
