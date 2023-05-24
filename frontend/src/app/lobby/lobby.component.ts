@@ -11,7 +11,7 @@ import { Quiz } from '../shared/interfaces/quiz.interface';
 export class LobbyComponent implements OnInit {
   public roomId: string | null = "";
   public players: string[] = [];
-  public summarize: { socketId: string, points: number }[] = [];
+  public summarize: { socketId: string, points: number, username: string }[] = [];
   public startQuiz = false;
   public isInitator = false;
   public showSummarize = false;
@@ -47,7 +47,7 @@ export class LobbyComponent implements OnInit {
     this.isInitator = this.route.snapshot.paramMap.get('initator') == "false" ? false : true;
 
     if(this.roomId)
-      this.websocketService.joinRoom(this.roomId);
+      this.websocketService.joinRoom(this.roomId, localStorage.getItem("username")!);
 
     this.websocketService.getSocket().on('quiz-data', (quiz: any) => {
       this.quiz.results = quiz.quizContent;

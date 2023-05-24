@@ -31,9 +31,9 @@ export class RegistrationComponent implements OnInit {
   register() {
     this.sessionService.signUp(this.username, this.password).subscribe({
       next: (data: { username: string, token: string }) => {
-        const { token } = data;
+        const { token, username } = data;
 
-        this.sessionService.setToken(token);
+        this.sessionService.setToken(token, username);
       }
     });
     this.router.navigateByUrl('/start');

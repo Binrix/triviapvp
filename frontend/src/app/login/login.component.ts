@@ -32,9 +32,9 @@ export class LoginComponent implements OnInit {
   login() {
     this.sessionService.login(this.username, this.password).subscribe({
       next: (data: { username: string, token: string }) => {
-        const { token } = data;
+        const { token, username } = data;
 
-        this.sessionService.setToken(token);
+        this.sessionService.setToken(token, username);
       }
     });
     this.router.navigateByUrl('/start');

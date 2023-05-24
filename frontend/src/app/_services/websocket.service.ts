@@ -1,3 +1,4 @@
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { io } from "socket.io-client";
 
@@ -8,7 +9,9 @@ import { io } from "socket.io-client";
 export class WebsocketService {
     private socket;
 
-    constructor() {
+    constructor(
+        private readonly httpClient: HttpClient
+    ) {
         this.socket = io("http://localhost:3000");
     }
 
@@ -28,8 +31,8 @@ export class WebsocketService {
         this.socket.emit('start-game', roomId);
     }
 
-    public joinRoom(roomId: string) {
-        this.socket.emit("join", roomId);
+    public joinRoom(roomId: string, username: string) {
+        this.socket.emit("join", { roomId, username });
     }
 
     public disconnect() {

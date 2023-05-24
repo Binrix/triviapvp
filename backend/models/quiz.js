@@ -7,7 +7,7 @@ let question = new mongoose.Schema({
     question: String,
     correct_answer: String,
     incorrect_answers: [String]
-})
+});
 
 //The schema for the user stored in mongoose
 let quizSchema = new mongoose.Schema({

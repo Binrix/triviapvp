@@ -4,8 +4,8 @@ let mongoose = require('mongoose');
 let userSchema = new mongoose.Schema({
     username: String,
     password: String,
-    createdAt: Date,
+    createdAt: Date
 });
 
 //Export of the UserSchema
-module.exports = new mongoose.model('User',userSchema);
+module.exports = new mongoose.model('User', userSchema);

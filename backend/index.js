@@ -52,7 +52,6 @@ app.post("/api/login", async (req, res) => {
         return;
     }
 
-
     let token = jwt.sign(
         { userId: existingUser.id },
         KEY,
@@ -130,21 +129,21 @@ app.post('/api/create', isAuthentificated, (req, res)=>{
 let rooms = [];
 
 io.on("connection", socket => {
-    socket.on("join", async (roomId) => {
-        console.log("join");
+    socket.on("join", async ({ roomId, username }) => {
         var room = rooms.find(r => r.roomId == roomId); 
         let quiz = await Quiz.findOne({ lobbyurl: roomId }); 
 
         if(room == undefined) {
-            rooms.push({ roomId: roomId, amountPlayers: 1, givenAnswers: 0, answers: [], currentQuestionIndex: 0, numberQuestions: quiz.quizContent.length });
+            rooms.push({ roomId: roomId, players: [{ socketId: socket.id, username: username }] , amountPlayers: 1, givenAnswers: 0, answers: [], currentQuestionIndex: 0, numberQuestions: quiz.quizContent.length });
         } else {
+            room.players.push({ socketId: socket.id, username: username });
             room.amountPlayers++;
         }; 
 
         socket.join(roomId);
 
         socket.emit('quiz-data', quiz);
-        socket.to(roomId).emit('player-joined', `Unknown`);
+        socket.to(roomId).emit('player-joined', username);
     });
     socket.on("leave", (roomId) => {
         socket.leave(roomId);
@@ -157,7 +156,8 @@ io.on("connection", socket => {
         var room = rooms.find(r => r.roomId == roomId);
 
         if(room != undefined) {
-            room.answers.push({ socketId: socket.id, answer: answer });
+            var username = room.players.find(u => u.socketId == socket.id).username;
+            room.answers.push({ username: username, socketId: socket.id, answer: answer });
             room.givenAnswers++;
 
             if(room.givenAnswers >= room.amountPlayers) {
@@ -174,7 +174,7 @@ io.on("connection", socket => {
                             var player = summarize.find(p => p.socketId == answer.socketId);
 
                             if(player == undefined) 
-                                summarize.push({ socketId: answer.socketId, points: 1 });
+                                summarize.push({ socketId: answer.socketId, username: answer.username, points: 1 });
                             else
                                 player.points++;
                         }
@@ -217,7 +217,7 @@ function isAuthentificated(req,res,next)
     try
     {
         //Decoding the token
-        res.locals.userId = jwt.verify(token,KEY ).userId;
+        res.locals.userId = jwt.verify(token, KEY).userId;
         next();
     }
     catch (err)

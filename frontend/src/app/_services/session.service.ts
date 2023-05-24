@@ -26,8 +26,9 @@ export class SessionService {
     localStorage.removeItem("token");
   }
 
-  public setToken(token: string): void {
+  public setToken(token: string, username: string): void {
     localStorage.setItem("token", token);
+    localStorage.setItem("username", username);
   }
 
   public isAuthorized(): boolean {
