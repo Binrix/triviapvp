@@ -32,6 +32,10 @@ export class LobbyComponent implements OnInit {
     }
   }
 
+  /**
+   * Gives the answer and sends it to the backend
+   * @param answerFromUser The answer
+   */
   public giveAnswer(answerFromUser: string) {
     this.answers.push({ answer: answerFromUser, questionIndex: this.currentQuestionIndex });
     
