@@ -6,7 +6,11 @@ Im Rahmen von Modul M326 wurde am GIBZ das hier beschriebene Projekt von Benjami
 ### Projektmanagement
 Während dieses Projekts im Modul 326 wurde nach dem Wasserfallmodell gearbeitet. Das heisst, dass in einem ersten Schritt die Rahmenbedingungen dafür definiert wurden. Hierbei wurde die Anforderungen analysiert, das Ziel definiert, die eingesetzten Technologien erfasst und die Zeitplanung erstellt. Somit wurden in diesem Projekt die Schritte Analyse und Design in einem einzelnen Schritt zusammengefasst. Das macht auch Sinn, da das Projekt zu kurz ist, um die beiden Schritte einzeln auszuführen. Im nächsten Schritt ging es um die Implementation. Sowohl das Frontend als auch das Backend wurden in diesem Schritt komplett implementiert. In einem letzten Schritt wurde die gesamte Implementation getestet, um eine reibungslose Funktionalität zu garantieren. Der Schritt der Deployen/Warten wurde nicht gemacht, da dies weder zum Projektauftrag gehört als auch aus zeitlichen Gründen nicht möglich gewesen wäre die Applikation zu Deployen.
 
+![Wasserfall drawio](https://github.com/Binrix/triviapvp/assets/126484410/76251349-6cf5-407f-9db7-6dcc435947cb)
+
 ### Zeitplan
+
+![Zeitplan](https://github.com/Binrix/triviapvp/assets/126484410/46271c2d-9219-4f51-9548-f145b8d8811e)
 
 ## Architektur
 ### Einführung
@@ -24,25 +28,32 @@ Das Backend dieses Projekts wurde mithilfe von Node und Express.js erstellt. Die
 Weil wir für dieses gesamte Projekt nur sehr wenig Zeit zur Verfügung haben, mussten wir uns beim Testing aufs Wichtigste konzentrieren. Damit wir aber mit möglichst wenig Tests dennoch die meisten Funktionen testen wollten, haben wir uns dazu entschieden, Abnahmetests zu schreiben. So kann am Ende garantiert werden, dass zumindest die Applikation wie erwartet läuft. Dafür reichte für andere Tests, wie zum Beispiel Unittests, die Zeit nicht.
 
 ### Testcase 01
-Beschreibung: Klickt man auf den Link ‘Registration’, kommt man auf die Seite der Registrierung. Erstellt man dort einen Benutzer mit Passwort und Benutzernamen, welcher noch nicht existiert, sieht man in der Konsole Browser Konsole keinen Fehler. Zudem wird man auf die Startseite weitergeleitet. Resultat: Funktioniert!
+Beschreibung: Klickt man auf den Link ‘Registration’, kommt man auf die Seite der Registrierung. Erstellt man dort einen Benutzer mit Passwort und Benutzernamen, welcher noch nicht existiert, sieht man in der Konsole Browser Konsole keinen Fehler. Zudem wird man auf die Startseite weitergeleitet.  
+Resultat: Funktioniert!
 
 ### Testcase 02
-Beschreibung: Klickt man auf den Link ‘Registration’, kommt man auf die Seite der Registrierung. Erstellt man dort einen Benutzer mit Passwort und Benutzernamen, welcher bereits existiert, sieht man in der Konsole Browser-Konsole einen Fehler, der einem sagt, dass der Benutzername bereits verwendet wird. Zudem wird man auf die Startseite weitergeleitet. Resultat: Funktioniert!
+Beschreibung: Klickt man auf den Link ‘Registration’, kommt man auf die Seite der Registrierung. Erstellt man dort einen Benutzer mit Passwort und Benutzernamen, welcher bereits existiert, sieht man in der Konsole Browser-Konsole einen Fehler, der einem sagt, dass der Benutzername bereits verwendet wird. Zudem wird man auf die Startseite weitergeleitet.  
+Resultat: Funktioniert!
 
 ### Testcase 03
-Beschreibung: Klickt man auf den Link ‘Login’, kommt man auf die Seite des Login. Meldet man sich nun mit einem Benutzer an, den es nicht gibt, sieht man in der Browser-Konsole einen Fehler, dass kein Benutzer mit diesen Credentials gefunden wurde. Zudem wird man auf die Startseite weitergeleitet. Resultat: Funktioniert!
+Beschreibung: Klickt man auf den Link ‘Login’, kommt man auf die Seite des Login. Meldet man sich nun mit einem Benutzer an, den es nicht gibt, sieht man in der Browser-Konsole einen Fehler, dass kein Benutzer mit diesen Credentials gefunden wurde. Zudem wird man auf die Startseite weitergeleitet.  
+Resultat: Funktioniert!
 
 ### Testcase 04
-Beschreibung: Klickt man auf den Link ‘Login’, kommt man auf die Seite des Login. Meldet man sich nun mit einem Benutzer an, den es gibt, sieht man in der Browser-Konsole keinen Fehler. Zudem wird man auf die Startseite weitergeleitet. Resultat: Funktioniert!
+Beschreibung: Klickt man auf den Link ‘Login’, kommt man auf die Seite des Login. Meldet man sich nun mit einem Benutzer an, den es gibt, sieht man in der Browser-Konsole keinen Fehler. Zudem wird man auf die Startseite weitergeleitet.  
+Resultat: Funktioniert!
 
 ### Testcase 05
-Beschreibung: Klickt man auf den Link ‘Create Quiz’, kommt man auf die Seite der Quizerstellung. Wählt man eine Difficulty und eine Schwierigkeit aus und klickt auf den ‘Create Lobby’ Button, ohne angemeldet zu sein, gibt es in der Browser-Konsole einen Fehler 401. Resultat: Funktioniert!
+Beschreibung: Klickt man auf den Link ‘Create Quiz’, kommt man auf die Seite der Quizerstellung. Wählt man eine Difficulty und eine Schwierigkeit aus und klickt auf den ‘Create Lobby’ Button, ohne angemeldet zu sein, gibt es in der Browser-Konsole einen Fehler 401.  
+Resultat: Funktioniert!
 
 ### Testcase 06
-Beschreibung: Klickt man auf den Link ‘Create Quiz’, kommt man auf die Seite der Quizerstellung. Wählt man eine Schwierigkeit und ein Thema aus und klickt auf den ‘Create Lobby’ Button, während man angemeldet ist, wird man in die Lobby weitergeleitet. Resultat: Funktioniert!
+Beschreibung: Klickt man auf den Link ‘Create Quiz’, kommt man auf die Seite der Quizerstellung. Wählt man eine Schwierigkeit und ein Thema aus und klickt auf den ‘Create Lobby’ Button, während man angemeldet ist, wird man in die Lobby weitergeleitet.  
+Resultat: Funktioniert!
 
 ### Testcase 07
-Beschreibung: Joint man einer Lobby, welche man erstellt hat, sieht man einen Text, den Link für die Lobby und einen Start Game Button. Resultat: Funktioniert!
+Beschreibung: Joint man einer Lobby, welche man erstellt hat, sieht man einen Text, den Link für die Lobby und einen Start Game Button.  
+Resultat: Funktioniert!
 
 ### Testcase 08
-Beschreibung: Hat man erfolgreich ein Quiz erstellt und ist in einer Lobby, so wird eine Nachricht geschrieben, sobald ein anderer Benutzer derselben Lobby joint. Resultat: Funktioniert!
+Beschreibung: Hat man erfolgreich ein Quiz erstellt und ist in einer Lobby, so wird eine Nachricht geschrieben, sobald ein anderer Benutzer derselben Lobby joint.  Resultat: Funktioniert!
