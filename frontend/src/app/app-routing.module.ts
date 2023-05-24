@@ -6,6 +6,7 @@ import { RegistrationComponent } from './registration/registration.component';
 import { StartComponent } from './start/start.component';
 import { LobbyComponent } from './lobby/lobby.component';
 import { RoomsComponent } from './rooms/rooms.component';
+import { ImpressumComponent } from './impressum/impressum.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'start', pathMatch: 'full'},
@@ -14,7 +15,8 @@ const routes: Routes = [
   {path: 'registration', component: RegistrationComponent},
   {path: 'quizcreation', component: QuizcreationComponent},
   {path: 'join/:roomId/:initator', component: LobbyComponent },
-  {path: 'rooms', component: RoomsComponent }
+  {path: 'rooms', component: RoomsComponent },
+  {path: 'impressum', component: ImpressumComponent}
 ];
 
 @NgModule({

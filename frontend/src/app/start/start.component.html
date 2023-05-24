@@ -16,6 +16,7 @@
                 <a *ngIf="!isAuthorized" routerLink="/login">Login</a>
                 <a *ngIf="!isAuthorized" routerLink="/registration">Registration</a>
                 <a (click)="logout()" *ngIf="isAuthorized">Logout</a>
+                <a routerLink="/impressum" routerLinkActive="router-link-active" >Impressum</a>
             </div>
             <div class="logo">
                 <img id="beanslogo" src="../../assets/Homemade-Heinz-Baked-Beans_0-SQ.jpg">
