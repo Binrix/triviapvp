@@ -117,6 +117,7 @@ app.post('/api/create', isAuthentificated, (req, res)=>{
             const roomId = uuid.v4();
             var newQuiz = {
                 quizContent: quiz.results,
+                difficulty: difficulty,
                 lobbyurl: roomId
             };
 
@@ -172,14 +173,23 @@ io.on("connection", socket => {
                     answers.forEach(answer => {
                         if(correctAnswers.includes(answer.answer)) {
                             var player = summarize.find(p => p.socketId == answer.socketId);
+                            var amountPoints = 1;
+
+                            if(quiz.difficulty == "hard") {
+                                amountPoints = 3;
+                            } else if(quiz.difficulty == "medium") {
+                                amountPoints = 2;
+                            }
 
                             if(player == undefined) 
-                                summarize.push({ socketId: answer.socketId, username: answer.username, points: 1 });
+                                summarize.push({ socketId: answer.socketId, username: answer.username, amountPoints: amountPoints });
                             else
-                                player.points++;
+                                player.amountPoints += amountPoints;
                         }
                     });
 
+
+                    console.log(summarize);
                     io.in(roomId).emit('end', summarize);
                 } else {
                     io.in(roomId).emit('next-question');

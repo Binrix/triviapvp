@@ -11,7 +11,7 @@ import { Quiz } from '../shared/interfaces/quiz.interface';
 export class LobbyComponent implements OnInit {
   public roomId: string | null = "";
   public players: string[] = [];
-  public summarize: { socketId: string, points: number, username: string }[] = [];
+  public summarize: { socketId: string, amountPoints: number, username: string }[] = [];
   public startQuiz = false;
   public isInitator = false;
   public showSummarize = false;

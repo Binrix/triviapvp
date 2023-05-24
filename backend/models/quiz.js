@@ -12,6 +12,7 @@ let question = new mongoose.Schema({
 //The schema for the user stored in mongoose
 let quizSchema = new mongoose.Schema({
     lobbyurl: String,
+    difficulty: String,
     quizContent: [question]
 });
 
