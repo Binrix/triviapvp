@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-impressum',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ImpressumComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private location: Location
+    ) { }
 
   ngOnInit(): void {
+  }
+
+  back() {
+    this.location.back();
   }
 
 }
